@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vyloppilly Samskrithi Bhavan - Gallery Layout</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Alpine.js -->
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Markdown Parser -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            red: '#800020', // Deep Crimson
+                            gold: '#D4AF37', // Metallic Gold
+                            dark: '#1a1a1a',
+                            light: '#f9fafb',
+                            gray: '#f4f4f4'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Cormorant Garamond"', 'serif'],
+                        sans: ['"Inter"', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'pattern': "url('https://www.transparenttextures.com/patterns/cubes.png')",
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Styles */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #fff;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #e5e7eb;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #D4AF37;
+        }
+
+        .writing-vertical {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+        }
+
+        /* Loader */
+        .dot-flashing {
+            position: relative;
+            width: 10px;
+            height: 10px;
+            border-radius: 5px;
+            background-color: #D4AF37;
+            animation: dot-flashing 1s infinite linear alternate;
+            animation-delay: 0.5s;
+        }
+
+        .dot-flashing::before,
+        .dot-flashing::after {
+            content: "";
+            display: inline-block;
+            position: absolute;
+            top: 0;
+            width: 10px;
+            height: 10px;
+            border-radius: 5px;
+            background-color: #D4AF37;
+            animation: dot-flashing 1s infinite alternate;
+        }
+
+        .dot-flashing::before {
+            left: -15px;
+            animation-delay: 0s;
+        }
+
+        .dot-flashing::after {
+            left: 15px;
+            animation-delay: 1s;
+        }
+
+        @keyframes dot-flashing {
+            0% {
+                background-color: #D4AF37;
+            }
+
+            50%,
+            100% {
+                background-color: #eee;
+            }
+        }
+
+        [x-cloak] {
+            display: none !important;
+        }
+    </style>
+</head>
+
+<body class="font-sans text-gray-800 bg-white"
+    x-data="{ bookingModalOpen: false, mobileMenuOpen: false, bookingVenue: 'Undecided', bookingType: 'Performing Arts' }">
+
+    <!-- Sidebar Navigation (Desktop) -->
+    <aside
+        class="hidden lg:flex flex-col fixed left-0 top-0 h-screen w-24 bg-white border-r border-gray-100 z-50 justify-between items-center py-8"
+        x-data="{ activeMenu: null }">
+        <!-- Logo -->
+        <div
+            class="w-12 h-12 flex items-center justify-center bg-brand-red text-white font-serif font-bold text-xl rounded-sm shadow-lg">
+            VS
+        </div>
+
+        <!-- Vertical Menu -->
+        <nav class="flex flex-col items-center gap-8 w-full">
+            <a href="#home"
+                class="writing-vertical transform rotate-180 text-xs font-bold uppercase tracking-widest text-gray-400 hover:text-brand-red transition py-2">Home</a>
+
+            <!-- About Flyout -->
+            <div class="relative w-full flex justify-center group" @mouseenter="activeMenu = 'about'"
+                @mouseleave="activeMenu = null">
+                <a href="#about"
+                    class="writing-vertical transform rotate-180 text-xs font-bold uppercase tracking-widest text-gray-400 hover:text-brand-red transition py-4">About</a>
+
+                <div x-show="activeMenu === 'about'" x-transition:enter="transition ease-out duration-200"
+                    x-transition:enter-start="opacity-0 -translate-x-2"
+                    x-transition:enter-end="opacity-100 translate-x-0"
+                    x-transition:leave="transition ease-in duration-150"
+                    x-transition:leave-start="opacity-100 translate-x-0"
+                    x-transition:leave-end="opacity-0 -translate-x-2"
+                    class="absolute left-16 top-0 w-72 bg-white shadow-2xl border-l-4 border-brand-red p-8 z-50 text-left rounded-r-xl">
+                    <h4 class="text-brand-red font-bold uppercase text-xs mb-4 border-b border-gray-100 pb-2">Overview
+                    </h4>
+                    <ul class="space-y-3 text-sm text-gray-600">
+                        <li><a href="#" class="block hover:text-brand-gold hover:translate-x-1 transition">Aim &
+                                Vision</a></li>
+                        <li><a href="#"
+                                class="block hover:text-brand-gold hover:translate-x-1 transition">Administration</a>
+                        </li>
+                        <li><a href="#" class="block hover:text-brand-gold hover:translate-x-1 transition">Who is
+                                Who</a></li>
+                        <li><a href="#" class="block hover:text-brand-gold hover:translate-x-1 transition">Digital
+                                Archiving</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Activities Flyout -->
+            <div class="relative w-full flex justify-center group" @mouseenter="activeMenu = 'activities'"
+                @mouseleave="activeMenu = null">
+                <a href="#"
+                    class="writing-vertical transform rotate-180 text-xs font-bold uppercase tracking-widest text-gray-400 hover:text-brand-red transition py-4">Activities</a>
+
+                <div x-show="activeMenu === 'activities'" x-transition:enter="transition ease-out duration-200"
+                    x-transition:enter-start="opacity-0 -translate-x-2"
+                    x-transition:enter-end="opacity-100 translate-x-0"
+                    x-transition:leave="transition ease-in duration-150"
+                    x-transition:leave-start="opacity-100 translate-x-0"
+                    x-transition:leave-end="opacity-0 -translate-x-2"
+                    class="absolute left-16 top-[-50px] w-80 bg-white shadow-2xl border-l-4 border-brand-red p-8 z-50 text-left rounded-r-xl">
+                    <h4 class="text-brand-red font-bold uppercase text-xs mb-4 border-b border-gray-100 pb-2">Programs
+                    </h4>
+                    <ul class="space-y-3 text-sm text-gray-600 mb-6">
+                        <li><a href="#" class="block hover:text-brand-gold hover:translate-x-1 transition">Monthly
+                                Programs</a></li>
+                        <li><a href="#" class="block hover:text-brand-gold hover:translate-x-1 transition">Nadaka
+                                Kalari</a></li>
+                        <li><a href="#"
+                                class="block hover:text-brand-gold hover:translate-x-1 transition">Mambazhakkalam</a>
+                        </li>
+                    </ul>
+                    <div class="bg-brand-gray p-4 rounded text-xs text-gray-500 italic">
+                        "Celebrating art every day."
+                    </div>
+                </div>
+            </div>
+
+            <!-- Venues Flyout -->
+            <div class="relative w-full flex justify-center group" @mouseenter="activeMenu = 'venues'"
+                @mouseleave="activeMenu = null">
+                <a href="#venues"
+                    class="writing-vertical transform rotate-180 text-xs font-bold uppercase tracking-widest text-gray-400 hover:text-brand-red transition py-4">Venues</a>
+
+                <div x-show="activeMenu === 'venues'" x-transition:enter="transition ease-out duration-200"
+                    x-transition:enter-start="opacity-0 -translate-x-2"
+                    x-transition:enter-end="opacity-100 translate-x-0"
+                    x-transition:leave="transition ease-in duration-150"
+                    x-transition:leave-start="opacity-100 translate-x-0"
+                    x-transition:leave-end="opacity-0 -translate-x-2"
+                    class="absolute left-16 top-[-50px] w-72 bg-white shadow-2xl border-l-4 border-brand-red p-8 z-50 text-left rounded-r-xl">
+                    <h4 class="text-brand-red font-bold uppercase text-xs mb-4 border-b border-gray-100 pb-2">Facilities
+                    </h4>
+                    <ul class="space-y-3 text-sm text-gray-600">
+                        <li><a href="#" class="block hover:text-brand-gold hover:translate-x-1 transition">Padippura</a>
+                        </li>
+                        <li><a href="#"
+                                class="block hover:text-brand-gold hover:translate-x-1 transition">Koothambalam</a></li>
+                        <li><a href="#"
+                                class="block hover:text-brand-gold hover:translate-x-1 transition">Kalmandapam</a></li>
+                        <li><a href="#" class="block hover:text-brand-gold hover:translate-x-1 transition">Rakendu
+                                Auditorium</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <a href="#planner"
+                class="writing-vertical transform rotate-180 text-xs font-bold uppercase tracking-widest text-brand-gold hover:text-brand-red transition py-2">Planner</a>
+
+            <a href="#gallery"
+                class="writing-vertical transform rotate-180 text-xs font-bold uppercase tracking-widest text-gray-400 hover:text-brand-red transition py-2">Gallery</a>
+        </nav>
+
+        <!-- Social / Contact -->
+        <div class="flex flex-col gap-4 text-gray-400">
+            <a href="#" class="hover:text-brand-red transition"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="hover:text-brand-red transition"><i class="fab fa-facebook-f"></i></a>
+        </div>
+    </aside>
+
+    <!-- Mobile Header -->
+    <header
+        class="lg:hidden fixed top-0 w-full bg-white z-50 border-b border-gray-100 px-6 py-4 flex justify-between items-center">
+        <div class="font-serif font-bold text-xl text-brand-dark">VS Bhavan</div>
+        <button @click="mobileMenuOpen = !mobileMenuOpen" class="text-brand-dark"><i class="fas fa-bars"></i></button>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div x-show="mobileMenuOpen"
+        class="fixed inset-0 z-[60] bg-white flex flex-col justify-center items-center gap-8 text-xl font-serif"
+        x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 scale-95"
+        x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-150"
+        x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95">
+        <button @click="mobileMenuOpen = false" class="absolute top-6 right-6 text-2xl"><i
+                class="fas fa-times"></i></button>
+        <a href="#home" @click="mobileMenuOpen = false">Home</a>
+        <a href="#about" @click="mobileMenuOpen = false">About</a>
+        <a href="#venues" @click="mobileMenuOpen = false">Venues</a>
+        <a href="#gallery" @click="mobileMenuOpen = false">Gallery</a>
+        <a href="#planner" @click="mobileMenuOpen = false" class="text-brand-gold">AI Planner</a>
+    </div>
+
+    <!-- Main Content Wrapper -->
+    <main class="lg:ml-24">
+
+        <!-- Hero Section (Split) -->
+        <section id="home" class="min-h-screen grid lg:grid-cols-2">
+            <!-- Left: Content -->
+            <div class="flex flex-col justify-center px-12 lg:px-24 py-24 bg-brand-light relative">
+                <div class="absolute top-0 left-0 w-full h-full opacity-5 bg-pattern pointer-events-none"></div>
+
+                <span class="text-brand-red font-bold uppercase tracking-widest text-xs mb-6">Est. 1965</span>
+                <h1 class="font-serif text-6xl lg:text-8xl text-brand-dark leading-[0.9] mb-8">
+                    Culture <br>
+                    <span class="italic text-brand-gold">Resonates</span> <br>
+                    Here.
+                </h1>
+                <p class="text-gray-500 text-lg max-w-md leading-relaxed mb-12 border-l-2 border-brand-gold pl-6">
+                    A living museum of performing arts, preserving the soul of Kerala's traditions in a modern
+                    architectural sanctuary.
+                </p>
+                <div class="flex gap-6">
+                    <button @click="bookingModalOpen = true"
+                        class="px-8 py-4 bg-brand-dark text-white text-xs font-bold uppercase tracking-widest hover:bg-brand-red transition">
+                        Book Venue
+                    </button>
+                    <a href="#venues"
+                        class="px-8 py-4 border border-brand-dark text-brand-dark text-xs font-bold uppercase tracking-widest hover:bg-brand-dark hover:text-white transition">
+                        Explore Spaces
+                    </a>
+                </div>
+            </div>
+
+            <!-- Right: Visual -->
+            <div class="relative h-[50vh] lg:h-auto overflow-hidden">
+                <img src="images/slider/1.webp"
+                    class="absolute inset-0 w-full h-full object-cover hover:scale-105 transition duration-[2s]">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                <div class="absolute bottom-12 left-12 text-white">
+                    <p class="font-serif italic text-2xl">"The Soul of Kerala"</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section (Editorial) -->
+        <section id="about" class="py-32 px-6 lg:px-24 bg-white">
+            <div class="max-w-6xl mx-auto grid lg:grid-cols-12 gap-16 items-start">
+                <div class="lg:col-span-4">
+                    <h2 class="font-serif text-5xl text-brand-dark leading-none mb-8">
+                        Preserving <br>
+                        <span class="text-brand-red italic">Legacy</span>
+                    </h2>
+                    <div class="w-12 h-1 bg-brand-gold"></div>
+                </div>
+                <div class="lg:col-span-8">
+                    <p class="text-2xl font-serif text-gray-800 leading-relaxed mb-8">
+                        <span class="text-6xl float-left mr-4 mt-[-10px] text-brand-gold font-serif">K</span>erala is a
+                        narrow strip of land protected by natural boundaries. The uniqueness of the state is its
+                        cultural diversity. Our mission is to keep these traditions alive.
+                    </p>
+                    <div class="grid md:grid-cols-2 gap-8 mt-12">
+                        <div>
+                            <h4 class="font-bold uppercase tracking-widest text-xs mb-4 text-brand-red">Our Mission</h4>
+                            <p class="text-gray-500 text-sm leading-relaxed">To provide a world-class platform for
+                                artists and cultural practitioners, ensuring the continuity of Kerala's rich artistic
+                                heritage.</p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold uppercase tracking-widest text-xs mb-4 text-brand-red">Our Vision</h4>
+                            <p class="text-gray-500 text-sm leading-relaxed">A society that cherishes its roots while
+                                embracing the future, where art is accessible, appreciated, and preserved for
+                                generations.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Venues Section (Masonry Grid) -->
+        <section id="venues" class="bg-brand-gray py-32 px-6 lg:px-24">
+            <div class="flex justify-between items-end mb-16">
+                <div>
+                    <span class="text-brand-gold font-bold uppercase tracking-widest text-xs mb-2 block">Our
+                        Spaces</span>
+                    <h2 class="font-serif text-4xl text-brand-dark">The Collection</h2>
+                </div>
+                <a href="#"
+                    class="hidden md:inline-block text-xs font-bold uppercase tracking-widest border-b border-brand-dark pb-1 hover:text-brand-red hover:border-brand-red transition">View
+                    All Venues</a>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="group relative h-[500px] overflow-hidden cursor-pointer"
+                    @click="bookingModalOpen = true; bookingVenue = 'Koothambalam'">
+                    <img src="images/designs/koothambalam.jpg"
+                        class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-black/20 group-hover:bg-brand-red/80 transition duration-500"></div>
+                    <div class="absolute inset-0 p-8 flex flex-col justify-end text-white">
+                        <span
+                            class="text-brand-gold text-xs font-bold uppercase tracking-widest mb-2 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition duration-500 delay-100">Signature
+                            Venue</span>
+                        <h3
+                            class="font-serif text-3xl mb-2 translate-y-4 group-hover:translate-y-0 transition duration-500">
+                            Koothambalam</h3>
+                        <p
+                            class="text-sm opacity-0 group-hover:opacity-100 transition duration-500 delay-200 line-clamp-3">
+                            Traditional dance theatre structure designed scientifically for acoustics and aesthetics.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="group relative h-[500px] overflow-hidden cursor-pointer lg:mt-12"
+                    @click="bookingModalOpen = true; bookingVenue = 'Padippura'">
+                    <img src="images/designs/padippura.jpg"
+                        class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-black/20 group-hover:bg-brand-red/80 transition duration-500"></div>
+                    <div class="absolute inset-0 p-8 flex flex-col justify-end text-white">
+                        <span
+                            class="text-brand-gold text-xs font-bold uppercase tracking-widest mb-2 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition duration-500 delay-100">The
+                            Gateway</span>
+                        <h3
+                            class="font-serif text-3xl mb-2 translate-y-4 group-hover:translate-y-0 transition duration-500">
+                            Padippura</h3>
+                        <p
+                            class="text-sm opacity-0 group-hover:opacity-100 transition duration-500 delay-200 line-clamp-3">
+                            The traditional arched gateway serves as a grand entrance and a smaller venue.</p>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="group relative h-[500px] overflow-hidden cursor-pointer"
+                    @click="bookingModalOpen = true; bookingVenue = 'Kalmandapam'">
+                    <img src="images/designs/kalmandapam.jpg"
+                        class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-black/20 group-hover:bg-brand-red/80 transition duration-500"></div>
+                    <div class="absolute inset-0 p-8 flex flex-col justify-end text-white">
+                        <span
+                            class="text-brand-gold text-xs font-bold uppercase tracking-widest mb-2 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition duration-500 delay-100">Open
+                            Air</span>
+                        <h3
+                            class="font-serif text-3xl mb-2 translate-y-4 group-hover:translate-y-0 transition duration-500">
+                            Kalmandapam</h3>
+                        <p
+                            class="text-sm opacity-0 group-hover:opacity-100 transition duration-500 delay-200 line-clamp-3">
+                            A granite floor performance space ideal for martial arts like Kalaripayattu.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI Planner (Integrated Box) -->
+        <section id="planner" class="py-32 px-6 lg:px-24 bg-white relative">
+            <div class="absolute top-0 right-0 w-1/2 h-full bg-brand-light -z-10"></div>
+
+            <div
+                class="max-w-5xl mx-auto bg-brand-dark text-white shadow-2xl overflow-hidden flex flex-col md:flex-row">
+                <div class="p-12 md:w-1/2 flex flex-col justify-center border-r border-white/10">
+                    <span class="text-brand-gold font-bold uppercase tracking-widest text-xs mb-4">Gemini AI
+                        Concierge</span>
+                    <h2 class="font-serif text-4xl mb-6">Plan your event with intelligence.</h2>
+                    <p class="text-white/60 mb-8">Describe your vision, and let our AI suggest the perfect venue and
+                        theme.</p>
+
+                    <textarea id="eventInput" rows="3"
+                        class="w-full bg-white/5 border border-white/10 text-white p-4 focus:outline-none focus:border-brand-gold transition text-sm resize-none mb-4"
+                        placeholder="I want to organize a Kathakali performance..."></textarea>
+
+                    <button id="generateBtn"
+                        class="w-full py-4 bg-brand-gold text-brand-dark font-bold uppercase tracking-widest hover:bg-white transition">
+                        Generate Plan
+                    </button>
+                </div>
+
+                <div class="p-12 md:w-1/2 bg-brand-red/5 relative">
+                    <!-- Loading -->
+                    <div id="loadingState"
+                        class="hidden absolute inset-0 flex items-center justify-center bg-brand-dark/90 z-20">
+                        <div class="text-center">
+                            <div class="dot-flashing mx-auto mb-4"></div>
+                            <span class="text-xs font-bold uppercase tracking-widest text-brand-gold">Thinking...</span>
+                        </div>
+                    </div>
+
+                    <!-- Results -->
+                    <div id="resultCard" class="hidden h-full flex flex-col">
+                        <div class="flex-1">
+                            <h4 class="text-brand-gold font-serif text-2xl mb-2" id="venueName">Venue Name</h4>
+                            <p class="text-xs text-white/50 uppercase tracking-wider mb-6" id="venueReason">Reason</p>
+
+                            <div class="bg-white/5 p-6 border-l-2 border-brand-gold mb-6">
+                                <span class="block text-[10px] uppercase text-brand-gold mb-2">Theme Suggestion</span>
+                                <p class="text-sm italic text-white/80" id="themeSuggestion">Theme</p>
+                            </div>
+                        </div>
+
+                        <!-- Hidden data -->
+                        <div id="emailSubject" class="hidden"></div>
+                        <div id="emailBody" class="hidden"></div>
+
+                        <button onclick="copyEmail()"
+                            class="w-full py-3 border border-white/20 text-white text-xs font-bold uppercase tracking-widest hover:bg-white hover:text-brand-dark transition">
+                            Copy Draft Email
+                        </button>
+                    </div>
+
+                    <!-- Placeholder -->
+                    <div id="placeholderState" class="h-full flex items-center justify-center text-white/20">
+                        <i class="fas fa-robot text-6xl"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Team (Minimal Grid) -->
+        <section class="py-24 px-6 lg:px-24 bg-white border-t border-gray-100">
+            <div class="text-center mb-16">
+                <span class="text-brand-red font-bold uppercase tracking-widest text-xs mb-2 block">Leadership</span>
+                <h2 class="font-serif text-4xl text-brand-dark">The Council</h2>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
+                <!-- Member 1 -->
+                <div class="text-center group">
+                    <div
+                        class="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden grayscale group-hover:grayscale-0 transition duration-500">
+                        <img src="images/top-officials/pinarayi-vijayan.jpg" class="w-full h-full object-cover">
+                    </div>
+                    <h4 class="font-serif text-lg font-bold text-brand-dark">Sri. Pinarayi Vijayan</h4>
+                    <p class="text-[10px] uppercase tracking-widest text-gray-500">Hon. Chief Minister</p>
+                </div>
+                <!-- Member 2 -->
+                <div class="text-center group">
+                    <div
+                        class="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden grayscale group-hover:grayscale-0 transition duration-500">
+                        <img src="images/top-officials/saji_cheriyan_minister.jpg" class="w-full h-full object-cover">
+                    </div>
+                    <h4 class="font-serif text-lg font-bold text-brand-dark">Sri. Saji Cherian</h4>
+                    <p class="text-[10px] uppercase tracking-widest text-gray-500">Hon. Minister</p>
+                </div>
+                <!-- Member 3 -->
+                <div class="text-center group">
+                    <div
+                        class="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden grayscale group-hover:grayscale-0 transition duration-500">
+                        <img src="images/top-officials/rajan_ias.jpg" class="w-full h-full object-cover">
+                    </div>
+                    <h4 class="font-serif text-lg font-bold text-brand-dark">Dr. Rajan N</h4>
+                    <p class="text-[10px] uppercase tracking-widest text-gray-500">Principal Secretary</p>
+                </div>
+                <!-- Member 4 -->
+                <div class="text-center group">
+                    <div
+                        class="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden grayscale group-hover:grayscale-0 transition duration-500">
+                        <img src="images/top-officials/maya_director.jpg" class="w-full h-full object-cover">
+                    </div>
+                    <h4 class="font-serif text-lg font-bold text-brand-dark">Smt. Maya N. IFS</h4>
+                    <p class="text-[10px] uppercase tracking-widest text-gray-500">Director</p>
+                </div>
+                <!-- Member 5 -->
+                <div class="text-center group">
+                    <div
+                        class="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden grayscale group-hover:grayscale-0 transition duration-500">
+                        <img src="images/top-officials/gs_pradheep1.jpg" class="w-full h-full object-cover">
+                    </div>
+                    <h4 class="font-serif text-lg font-bold text-brand-dark">Sri. G.S. Pradeep</h4>
+                    <p class="text-[10px] uppercase tracking-widest text-gray-500">Vice Chairman</p>
+                </div>
+                <!-- Member 6 -->
+                <div class="text-center group">
+                    <div
+                        class="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden grayscale group-hover:grayscale-0 transition duration-500">
+                        <img src="images/top-officials/maneksh_sec.jpg" class="w-full h-full object-cover">
+                    </div>
+                    <h4 class="font-serif text-lg font-bold text-brand-dark">Sri. P.S. Prasanth</h4>
+                    <p class="text-[10px] uppercase tracking-widest text-gray-500">Secretary</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mixed Media Gallery Section -->
+        <section id="gallery" class="py-32 px-6 lg:px-24 bg-brand-gray" x-data="{ activeTab: 'all' }">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16">
+                <div>
+                    <span class="text-brand-red font-bold uppercase tracking-widest text-xs mb-2 block">Media
+                        Lounge</span>
+                    <h2 class="font-serif text-4xl text-brand-dark">Gallery & Videos</h2>
+                </div>
+
+                <!-- Filter Tabs -->
+                <div class="flex space-x-2 mt-6 md:mt-0 bg-white p-1 rounded-lg shadow-sm border border-gray-200">
+                    <button @click="activeTab = 'all'"
+                        :class="activeTab === 'all' ? 'bg-brand-dark text-white' : 'text-gray-500 hover:bg-gray-100'"
+                        class="px-6 py-2 rounded text-xs font-bold uppercase tracking-wider transition">All</button>
+                    <button @click="activeTab = 'photos'"
+                        :class="activeTab === 'photos' ? 'bg-brand-dark text-white' : 'text-gray-500 hover:bg-gray-100'"
+                        class="px-6 py-2 rounded text-xs font-bold uppercase tracking-wider transition">Photos</button>
+                    <button @click="activeTab = 'videos'"
+                        :class="activeTab === 'videos' ? 'bg-brand-dark text-white' : 'text-gray-500 hover:bg-gray-100'"
+                        class="px-6 py-2 rounded text-xs font-bold uppercase tracking-wider transition">Videos</button>
+                </div>
+            </div>
+
+            <!-- Gallery Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                <!-- Video Item 1 -->
+                <div x-show="activeTab === 'all' || activeTab === 'videos'"
+                    class="group relative aspect-video bg-black overflow-hidden shadow-lg cursor-pointer">
+                    <iframe class="w-full h-full" src="https://www.youtube.com/embed/kbV3049E5K8"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen></iframe>
+                </div>
+
+                <!-- Photo Item 1 -->
+                <div x-show="activeTab === 'all' || activeTab === 'photos'"
+                    class="group relative aspect-video overflow-hidden shadow-lg cursor-pointer">
+                    <img src="images/gallery/2025-11-28_154931.webp"
+                        class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
+                    <div
+                        class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-3xl"></i>
+                    </div>
+                </div>
+
+                <!-- Video Item 2 -->
+                <div x-show="activeTab === 'all' || activeTab === 'videos'"
+                    class="group relative aspect-video bg-black overflow-hidden shadow-lg cursor-pointer">
+                    <iframe class="w-full h-full" src="https://www.youtube.com/embed/0Cq7JdnrKh8"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen></iframe>
+                </div>
+
+                <!-- Photo Item 2 -->
+                <div x-show="activeTab === 'all' || activeTab === 'photos'"
+                    class="group relative aspect-video overflow-hidden shadow-lg cursor-pointer">
+                    <img src="images/gallery/2025-11-28_154952.webp"
+                        class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
+                    <div
+                        class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-3xl"></i>
+                    </div>
+                </div>
+
+                <!-- Photo Item 3 -->
+                <div x-show="activeTab === 'all' || activeTab === 'photos'"
+                    class="group relative aspect-video overflow-hidden shadow-lg cursor-pointer">
+                    <img src="images/gallery/2025-11-28_155004.webp"
+                        class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
+                    <div
+                        class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-3xl"></i>
+                    </div>
+                </div>
+
+                <!-- Video Item 3 -->
+                <div x-show="activeTab === 'all' || activeTab === 'videos'"
+                    class="group relative aspect-video bg-black overflow-hidden shadow-lg cursor-pointer">
+                    <iframe class="w-full h-full" src="https://www.youtube.com/embed/J7DIGTVHHQo"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen></iframe>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer
+            class="bg-white border-t border-gray-200 py-12 px-6 lg:px-24 text-sm text-gray-500 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-4">
+                <span class="font-serif text-brand-dark font-bold text-lg">VS Bhavan</span>
+                <span class="w-px h-4 bg-gray-300"></span>
+                <p>&copy; 2025 Dept. of Cultural Affairs</p>
+            </div>
+            <div class="flex gap-6 uppercase tracking-widest text-xs font-bold">
+                <a href="#" class="hover:text-brand-red transition">Privacy</a>
+                <a href="#" class="hover:text-brand-red transition">Terms</a>
+                <a href="#" class="hover:text-brand-red transition">Contact</a>
+            </div>
+        </footer>
+    </main>
+
+    <!-- Booking Modal -->
+    <div x-show="bookingModalOpen" x-cloak class="fixed inset-0 z-[100] flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-brand-dark/80 backdrop-blur-sm transition-opacity"
+            @click="bookingModalOpen = false"></div>
+        <div class="bg-white w-full max-w-lg relative z-10 shadow-2xl overflow-hidden"
+            x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 scale-95"
+            x-transition:enter-end="opacity-100 scale-100">
+
+            <div class="bg-brand-red p-6 text-white flex justify-between items-center">
+                <h3 class="font-serif text-2xl">Book a Venue</h3>
+                <button @click="bookingModalOpen = false" class="hover:text-brand-gold"><i
+                        class="fas fa-times"></i></button>
+            </div>
+
+            <form class="p-8 space-y-6">
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-gray-500 mb-2">Name</label>
+                    <input type="text"
+                        class="w-full p-3 bg-gray-50 border border-gray-200 focus:border-brand-red outline-none transition"
+                        placeholder="John Doe">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-gray-500 mb-2">Email</label>
+                    <input type="email"
+                        class="w-full p-3 bg-gray-50 border border-gray-200 focus:border-brand-red outline-none transition"
+                        placeholder="john@example.com">
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-gray-500 mb-2">Venue</label>
+                        <select x-model="bookingVenue"
+                            class="w-full p-3 bg-gray-50 border border-gray-200 focus:border-brand-red outline-none transition">
+                            <option>Padippura</option>
+                            <option>Koothambalam</option>
+                            <option>Kalmandapam</option>
+                            <option>Rakendu Auditorium</option>
+                            <option>Undecided</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-gray-500 mb-2">Date</label>
+                        <input type="date"
+                            class="w-full p-3 bg-gray-50 border border-gray-200 focus:border-brand-red outline-none transition">
+                    </div>
+                </div>
+                <button type="button" @click="bookingModalOpen = false; alert('Inquiry Sent!')"
+                    class="w-full py-4 bg-brand-dark text-white font-bold uppercase tracking-widest hover:bg-brand-red transition">Confirm
+                    Inquiry</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Gemini Logic -->
+    <script type="module">
+        import { GoogleGenerativeAI } from "https://esm.run/@google/generative-ai";
+        const apiKey = ""; // Insert Key
+        const genAI = new GoogleGenerativeAI(apiKey);
+        const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash-preview-09-2025", generationConfig: { responseMimeType: "application/json" } });
+
+        document.getElementById('generateBtn').addEventListener('click', async () => {
+            const input = document.getElementById('eventInput').value;
+            if (!input) return;
+
+            document.getElementById('loadingState').classList.remove('hidden');
+            document.getElementById('placeholderState').classList.add('hidden');
+            document.getElementById('resultCard').classList.add('hidden');
+
+            try {
+                const result = await model.generateContent(`Plan event: ${input}. JSON format: {recommended_venue, reason, theme_suggestion, email_subject, email_body}`);
+                const data = JSON.parse(result.response.text());
+
+                document.getElementById('venueName').innerText = data.recommended_venue;
+                document.getElementById('venueReason').innerText = data.reason;
+                document.getElementById('themeSuggestion').innerText = data.theme_suggestion;
+                document.getElementById('emailSubject').innerText = data.email_subject;
+                document.getElementById('emailBody').innerText = data.email_body;
+
+                document.getElementById('loadingState').classList.add('hidden');
+                document.getElementById('resultCard').classList.remove('hidden');
+            } catch (e) {
+                console.error(e);
+                alert('AI Service Unavailable');
+                document.getElementById('loadingState').classList.add('hidden');
+                document.getElementById('placeholderState').classList.remove('hidden');
+            }
+        });
+
+        window.copyEmail = function () {
+            const text = `${document.getElementById('emailSubject').innerText}\n\n${document.getElementById('emailBody').innerText}`;
+            navigator.clipboard.writeText(text);
+            alert('Draft copied to clipboard!');
+        };
+    </script>
+</body>
+
+</html>
