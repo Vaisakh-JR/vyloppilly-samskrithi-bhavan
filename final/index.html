@@ -486,11 +486,11 @@
         <!-- Hero Section (Split) -->
         <section id="home" class="min-h-[calc(100vh-80px)] grid lg:grid-cols-2 bg-brand-light">
             <!-- Left: Content -->
-            <div class="flex flex-col justify-center px-12 lg:px-24 py-24 relative">
+            <div class="flex flex-col justify-center px-6 lg:px-24 py-24 relative">
                 <div class="absolute top-0 left-0 w-full h-full opacity-5 bg-pattern pointer-events-none"></div>
 
                 <span class="text-brand-red font-bold uppercase tracking-widest text-xs mb-6">Est. 1965</span>
-                <h1 class="font-serif text-6xl lg:text-8xl text-brand-dark leading-[0.9] mb-8">
+                <h1 class="font-serif text-5xl lg:text-8xl text-brand-dark leading-[0.9] mb-8">
                     Culture <br>
                     <span class="italic text-brand-gold">Resonates</span> <br>
                     Here.
@@ -499,17 +499,17 @@
                     A living museum of performing arts, preserving the soul of Kerala's traditions in a modern
                     architectural sanctuary.
                 </p>
-                <div class="flex gap-6">
+                <div class="flex flex-col sm:flex-row gap-4 sm:gap-6">
                     <button @click="bookingModalOpen = true; bookingCategory = 'hall'"
-                        class="px-8 py-4 bg-brand-dark text-white text-xs font-bold uppercase tracking-widest hover:bg-brand-red transition">
+                        class="w-full sm:w-auto px-8 py-4 bg-brand-dark text-white text-xs font-bold uppercase tracking-widest hover:bg-brand-red transition">
                         Book Hall
                     </button>
                     <button @click="bookingModalOpen = true; bookingCategory = 'dormitory'"
-                        class="px-8 py-4 bg-brand-gold text-brand-dark text-xs font-bold uppercase tracking-widest hover:bg-white transition">
+                        class="w-full sm:w-auto px-8 py-4 bg-brand-gold text-brand-dark text-xs font-bold uppercase tracking-widest hover:bg-white transition">
                         Book Dormitory
                     </button>
                     <a href="#venues"
-                        class="px-8 py-4 border border-brand-dark text-brand-dark text-xs font-bold uppercase tracking-widest hover:bg-brand-dark hover:text-white transition">
+                        class="w-full sm:w-auto px-8 py-4 border border-brand-dark text-brand-dark text-xs font-bold uppercase tracking-widest hover:bg-brand-dark hover:text-white transition text-center">
                         Explore Spaces
                     </a>
                 </div>
@@ -943,6 +943,5 @@
     <!-- Sidebar Scroll Script -->
     <script src="assets/js/sidebar-scroll.js"></script>
 </body>
-
 
 </html>
