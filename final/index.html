@@ -40,7 +40,7 @@
         class="fixed top-0 left-0 w-full bg-white z-[60] border-b border-gray-100 h-20 flex items-center justify-between px-6 lg:px-12">
         <!-- Logo Area -->
         <div class="flex items-center gap-4">
-            <img src="images/logo.png" alt="MPCC Logo" class="h-12 w-auto">
+            <img src="assets/images/logo.png" alt="MPCC Logo" class="h-12 w-auto">
         </div>
 
         <!-- Right Actions -->
@@ -325,7 +325,7 @@
         <!-- Mobile Menu Header -->
         <div class="flex justify-between items-center p-6 border-b border-gray-100">
             <div class="flex items-center gap-3">
-                <img src="images/logo.png" alt="Logo" class="h-10">
+                <img src="assets/images/logo.png" alt="Logo" class="h-10">
             </div>
             <button @click="mobileMenuOpen = false" class="text-2xl text-gray-400"><i class="fas fa-times"></i></button>
         </div>
@@ -519,10 +519,10 @@
             <div class="relative h-[50vh] lg:h-auto overflow-hidden group hero-mask" x-data="{ 
                     currentSlide: 0, 
                     slides: [
-                        { img: 'images/slider/sq/1.webp', text: 'The Soul of Kerala' },
-                        { img: 'images/slider/sq/2.webp', text: 'Art in Motion' },
-                        { img: 'images/slider/sq/3.webp', text: 'Cultural Heritage' },
-                        { img: 'images/slider/sq/4.webp', text: 'Timeless Traditions' }
+                        { img: 'assets/images/slider/sq/1.webp', text: 'The Soul of Kerala' },
+                        { img: 'assets/images/slider/sq/2.webp', text: 'Art in Motion' },
+                        { img: 'assets/images/slider/sq/3.webp', text: 'Cultural Heritage' },
+                        { img: 'assets/images/slider/sq/4.webp', text: 'Timeless Traditions' }
                     ],
                     next() { this.currentSlide = (this.currentSlide + 1) % this.slides.length },
                     prev() { this.currentSlide = (this.currentSlide - 1 + this.slides.length) % this.slides.length },
@@ -623,7 +623,7 @@
                 <!-- Card 1 -->
                 <div class="group relative h-[500px] overflow-hidden cursor-pointer"
                     @click="bookingModalOpen = true; bookingVenue = 'Koothambalam'">
-                    <img src="images/designs/koothambalam.jpg"
+                    <img src="assets/images/designs/koothambalam.jpg"
                         class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
                     <div class="absolute inset-0 bg-black/20 group-hover:bg-brand-red/80 transition duration-500">
                     </div>
@@ -645,7 +645,7 @@
                 <!-- Card 2 -->
                 <div class="group relative h-[500px] overflow-hidden cursor-pointer lg:mt-12"
                     @click="bookingModalOpen = true; bookingVenue = 'Padippura'">
-                    <img src="images/designs/padippura.jpg"
+                    <img src="assets/images/designs/padippura.jpg"
                         class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
                     <div class="absolute inset-0 bg-black/20 group-hover:bg-brand-red/80 transition duration-500">
                     </div>
@@ -665,7 +665,7 @@
                 <!-- Card 3 -->
                 <div class="group relative h-[500px] overflow-hidden cursor-pointer"
                     @click="bookingModalOpen = true; bookingVenue = 'Kalmandapam'">
-                    <img src="images/designs/kalmandapam.jpg"
+                    <img src="assets/images/designs/kalmandapam.jpg"
                         class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
                     <div class="absolute inset-0 bg-black/20 group-hover:bg-brand-red/80 transition duration-500">
                     </div>
@@ -696,7 +696,7 @@
                 <div class="text-center group">
                     <div
                         class="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden grayscale group-hover:grayscale-0 transition duration-500">
-                        <img src="images/top-officials/pinarayi-vijayan.jpg" class="w-full h-full object-cover">
+                        <img src="assets/images/top-officials/pinarayi-vijayan.jpg" class="w-full h-full object-cover">
                     </div>
                     <h4 class="font-serif text-lg font-bold text-brand-dark">Sri. Pinarayi Vijayan</h4>
                     <p class="text-[10px] uppercase tracking-widest text-gray-500">Hon. Chief Minister</p>
@@ -705,7 +705,8 @@
                 <div class="text-center group">
                     <div
                         class="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden grayscale group-hover:grayscale-0 transition duration-500">
-                        <img src="images/top-officials/saji_cheriyan_minister.jpg" class="w-full h-full object-cover">
+                        <img src="assets/images/top-officials/saji_cheriyan_minister.jpg"
+                            class="w-full h-full object-cover">
                     </div>
                     <h4 class="font-serif text-lg font-bold text-brand-dark">Sri. Saji Cherian</h4>
                     <p class="text-[10px] uppercase tracking-widest text-gray-500">Hon. Minister</p>
@@ -714,7 +715,7 @@
                 <div class="text-center group">
                     <div
                         class="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden grayscale group-hover:grayscale-0 transition duration-500">
-                        <img src="images/top-officials/rajan_ias.jpg" class="w-full h-full object-cover">
+                        <img src="assets/images/top-officials/rajan_ias.jpg" class="w-full h-full object-cover">
                     </div>
                     <h4 class="font-serif text-lg font-bold text-brand-dark">Dr. Rajan N</h4>
                     <p class="text-[10px] uppercase tracking-widest text-gray-500">Principal Secretary</p>
@@ -723,7 +724,7 @@
                 <div class="text-center group">
                     <div
                         class="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden grayscale group-hover:grayscale-0 transition duration-500">
-                        <img src="images/top-officials/maya_director.jpg" class="w-full h-full object-cover">
+                        <img src="assets/images/top-officials/maya_director.jpg" class="w-full h-full object-cover">
                     </div>
                     <h4 class="font-serif text-lg font-bold text-brand-dark">Smt. Maya N. IFS</h4>
                     <p class="text-[10px] uppercase tracking-widest text-gray-500">Director</p>
@@ -732,7 +733,7 @@
                 <div class="text-center group">
                     <div
                         class="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden grayscale group-hover:grayscale-0 transition duration-500">
-                        <img src="images/top-officials/gs_pradheep1.jpg" class="w-full h-full object-cover">
+                        <img src="assets/images/top-officials/gs_pradheep1.jpg" class="w-full h-full object-cover">
                     </div>
                     <h4 class="font-serif text-lg font-bold text-brand-dark">Sri. G.S. Pradeep</h4>
                     <p class="text-[10px] uppercase tracking-widest text-gray-500">Vice Chairman</p>
@@ -741,7 +742,7 @@
                 <div class="text-center group">
                     <div
                         class="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden grayscale group-hover:grayscale-0 transition duration-500">
-                        <img src="images/top-officials/maneksh_sec.jpg" class="w-full h-full object-cover">
+                        <img src="assets/images/top-officials/maneksh_sec.jpg" class="w-full h-full object-cover">
                     </div>
                     <h4 class="font-serif text-lg font-bold text-brand-dark">Sri. P.S. Prasanth</h4>
                     <p class="text-[10px] uppercase tracking-widest text-gray-500">Secretary</p>
@@ -751,8 +752,8 @@
 
         <!-- Mixed Media Gallery Section -->
         <section id="gallery" class="py-32 px-4 sm:px-6 lg:px-24 bg-brand-gray" x-data="{ activeTab: 'all' }">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-16">
-                <div>
+            <div class="flex flex-col md:flex-row justify-between items-center md:items-end mb-16">
+                <div class="text-center md:text-left">
                     <span class="text-brand-red font-bold uppercase tracking-widest text-xs mb-2 block">Media
                         Lounge</span>
                     <h2 class="font-serif text-4xl text-brand-dark">Gallery & Videos</h2>
@@ -787,7 +788,7 @@
                 <!-- Photo Item 1 -->
                 <div x-show="activeTab === 'all' || activeTab === 'photos'"
                     class="group relative aspect-video overflow-hidden shadow-lg cursor-pointer">
-                    <img src="images/gallery/2025-11-28_154931.webp"
+                    <img src="assets/images/gallery/2025-11-28_154931.webp"
                         class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
                     <div
                         class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
@@ -807,7 +808,7 @@
                 <!-- Photo Item 2 -->
                 <div x-show="activeTab === 'all' || activeTab === 'photos'"
                     class="group relative aspect-video overflow-hidden shadow-lg cursor-pointer">
-                    <img src="images/gallery/2025-11-28_154952.webp"
+                    <img src="assets/images/gallery/2025-11-28_154952.webp"
                         class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
                     <div
                         class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
@@ -818,7 +819,7 @@
                 <!-- Photo Item 3 -->
                 <div x-show="activeTab === 'all' || activeTab === 'photos'"
                     class="group relative aspect-video overflow-hidden shadow-lg cursor-pointer">
-                    <img src="images/gallery/2025-11-28_155004.webp"
+                    <img src="assets/images/gallery/2025-11-28_155004.webp"
                         class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
                     <div
                         class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
@@ -834,22 +835,114 @@
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                         allowfullscreen></iframe>
                 </div>
-
             </div>
         </section>
 
         <!-- Footer -->
-        <footer
-            class="bg-white border-t border-gray-200 py-12 px-6 lg:px-24 text-sm text-gray-500 flex flex-col md:flex-row justify-between items-center gap-6">
-            <div class="flex items-center gap-4">
-                <span class="font-serif text-brand-dark font-bold text-lg">VS Bhavan</span>
-                <span class="w-px h-4 bg-gray-300"></span>
-                <p>&copy; 2025 Dept. of Cultural Affairs</p>
+        <footer class="relative bg-brand-dark text-gray-300 py-16 px-6 lg:px-24 overflow-hidden">
+            <!-- Background Image with Overlay -->
+            <div class="absolute inset-0 z-0">
+                <img src="assets/images/slider/sq/2.webp" class="w-full h-full object-cover opacity-20">
+                <div class="absolute inset-0 bg-black/90"></div>
             </div>
-            <div class="flex gap-6 uppercase tracking-widest text-xs font-bold">
-                <a href="#" class="hover:text-brand-red transition">Privacy</a>
-                <a href="#" class="hover:text-brand-red transition">Terms</a>
-                <a href="#" class="hover:text-brand-red transition">Contact</a>
+
+            <div class="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+                <!-- Column 1: Address & Contact -->
+                <div class="space-y-6">
+                    <div class="flex items-center gap-3 mb-6">
+                        <img src="assets/images/logo.png" alt="Logo" class="h-12 bg-white p-1 rounded">
+                    </div>
+                    <p class="text-sm leading-relaxed">
+                        Nalanda, Nanthancode, Kowdiar,<br>
+                        P.O. Thiruvananthapuram - 695003<br>
+                        Kerala, India
+                    </p>
+                    <div class="text-sm space-y-2">
+                        <p><span class="text-brand-red font-bold">Tel:</span> +91 471 2311842, 2319127 (O)</p>
+                        <p><span class="text-brand-red font-bold">Email:</span> directormpcc@gmail.com</p>
+                    </div>
+                    <div class="flex gap-4 pt-4">
+                        <a href="#"
+                            class="w-8 h-8 rounded-full bg-brand-gold text-brand-dark flex items-center justify-center hover:bg-white transition"><i
+                                class="fab fa-facebook-f"></i></a>
+                        <a href="#"
+                            class="w-8 h-8 rounded-full bg-brand-gold text-brand-dark flex items-center justify-center hover:bg-white transition"><i
+                                class="fab fa-twitter"></i></a>
+                        <a href="#"
+                            class="w-8 h-8 rounded-full bg-brand-gold text-brand-dark flex items-center justify-center hover:bg-white transition"><i
+                                class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+
+                <!-- Column 2: Useful Links -->
+                <div>
+                    <h4 class="text-white font-bold text-lg mb-6 border-l-4 border-brand-red pl-3">Useful Links</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="#" class="hover:text-brand-gold transition"><i
+                                    class="fas fa-chevron-right text-xs mr-2 text-brand-red"></i>Terms and
+                                Conditions</a></li>
+                        <li><a href="#" class="hover:text-brand-gold transition"><i
+                                    class="fas fa-chevron-right text-xs mr-2 text-brand-red"></i>Copyright Policy</a>
+                        </li>
+                        <li><a href="#" class="hover:text-brand-gold transition"><i
+                                    class="fas fa-chevron-right text-xs mr-2 text-brand-red"></i>Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-brand-gold transition"><i
+                                    class="fas fa-chevron-right text-xs mr-2 text-brand-red"></i>Hyperlinking Policy</a>
+                        </li>
+                        <li><a href="#" class="hover:text-brand-gold transition"><i
+                                    class="fas fa-chevron-right text-xs mr-2 text-brand-red"></i>Accessibility
+                                Statement</a></li>
+                        <li><a href="#" class="hover:text-brand-gold transition"><i
+                                    class="fas fa-chevron-right text-xs mr-2 text-brand-red"></i>Sitemap</a></li>
+                    </ul>
+                    <!-- <div class="mt-8">
+                        <p class="text-xs font-bold uppercase text-gray-500 mb-2">Visitors Counter</p>
+                        <div
+                            class="inline-flex bg-black border border-gray-700 rounded p-2 font-mono text-brand-gold text-xl tracking-widest">
+                            0001
+                        </div>
+                    </div> -->
+                </div>
+
+                <!-- Column 3: Important Links -->
+                <div>
+                    <h4 class="text-white font-bold text-lg mb-6 border-l-4 border-brand-red pl-3">Important Links</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="#gallery" class="hover:text-brand-gold transition"><i
+                                    class="fas fa-chevron-right text-xs mr-2 text-brand-red"></i>Gallery</a></li>
+                        <li><a href="#" class="hover:text-brand-gold transition"><i
+                                    class="fas fa-chevron-right text-xs mr-2 text-brand-red"></i>Screen Reader
+                                Access</a></li>
+                        <li><a href="#" class="hover:text-brand-gold transition"><i
+                                    class="fas fa-chevron-right text-xs mr-2 text-brand-red"></i>Disclaimer</a></li>
+                        <li><a href="#" class="hover:text-brand-gold transition"><i
+                                    class="fas fa-chevron-right text-xs mr-2 text-brand-red"></i>Related Links</a></li>
+                        <li><a href="#" class="hover:text-brand-gold transition"><i
+                                    class="fas fa-chevron-right text-xs mr-2 text-brand-red"></i>Contact Us</a></li>
+                        <li><a href="#events" class="hover:text-brand-gold transition"><i
+                                    class="fas fa-chevron-right text-xs mr-2 text-brand-red"></i>Events</a></li>
+                    </ul>
+                    <!-- <div class="mt-8">
+                        <p class="text-xs font-bold uppercase text-gray-500 mb-1">Site last modified</p>
+                        <p class="text-sm italic text-gray-400">Tuesday, 02 December 2025</p>
+                    </div> -->
+                </div>
+
+                <!-- Column 4: Map -->
+                <div>
+                    <div class="bg-white p-2 rounded shadow-lg h-64 w-full">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3945.964207969566!2d76.9506683147833!3d8.50284899388656!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b05bbfd65555555%3A0x5555555555555555!2sVyloppilli%20Samskrithi%20Bhavan!5e0!3m2!1sen!2sin!4v1625555555555!5m2!1sen!2sin"
+                            width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="relative z-10 mt-16 pt-8 border-t border-gray-800 text-center text-xs text-gray-500">
+                <p>&copy; 2025 Vyloppilli Samskrithi Bhavan. All rights reserved. | Designed by Dept. of Cultural
+                    Affairs.</p>
             </div>
         </footer>
     </main>
